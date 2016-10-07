@@ -26,6 +26,7 @@ export default class TodoList extends Component {
     this.setState({
       list: TodoStore.getList()
     })
+    console.log("TodoList_onChange")
   }
 
   render() {
@@ -42,10 +43,7 @@ export default class TodoList extends Component {
     return (
       <div className="block">
 
-        <div className="info-date">
-          <div className="date">07 Oct 2016</div>
-          <div className="day">Vendredi</div>
-        </div>
+        <div className="info-date">Todo list</div>
 
         <div className="list">
           <ul>
@@ -53,7 +51,7 @@ export default class TodoList extends Component {
           </ul>
         </div>
 
-        <a className="btn" onClick={() => this.addItem() } ></a>
+        <button className="btn" onClick={() => this.addItem() } ></button>
       </div>
     );
   }
