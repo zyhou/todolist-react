@@ -1,36 +1,44 @@
 import React, { Component } from 'react';
+import TodoActions from '../actions/TodoActions';
 
 export default class TodoItem extends Component {
 
   constructor(props) {
     super(props);
-
-    this._onChange = this._onChange.bind(this);
+    this.state = { isEditing: true };
   }
 
-  _onChange() {
-    console.log("TodoItem_onChange")
+  onClick() {
+    console.log('onClick ' + true)
+    // this.setState({ isEditing: true });
   }
 
-  ChangeTexte(event) {
-
-    // this.props.todo.text = event.target.value
-    console.log("ChangeTexte " + event)
+  onMouseLeave() {
+    let isEditing = this.props.todo.text.trim() !== ''
+    console.log('onMouseLeave ' + this.props.todo.text + ' ' + isEditing)
+  //   this.setState({ isEditing: isEditing });
   }
 
+  changeTexte(event) {
+    TodoActions.updateText(this.props.todo.id, event.target.value)
+    this.setState({ isEditing: false });
+  }
 
   render() {
+
+    let modif;
+    if (this.state.isEditing) {
+      modif = '<i class="icon icon--sae"></i><span class="input__label-content input__label-content--sae">Votre tâche</span>'
+    }
+    console.log(modif)
 
     let todo = this.props.todo;
 
     return (
       <li key={todo.id}>
         <span className="input input--sae">
-          <input value={todo.text} onMouseLeave={(e) => this.ChangeTexte(e) }  type="text" className="input__field input__field--sae" />
-          <label className="input__label input__label--sae">
-            <i className="icon icon--sae"></i>
-            <span className="input__label-content input__label-content--sae">Votre tâche</span>
-          </label>
+          <input value={todo.text} onClick={(() => this.onClick()) } onChange={(e) => this.changeTexte(e) } onMouseLeave={() => this.onMouseLeave()} type="text" className="input__field input__field--sae" />
+          <label className="input__label input__label--sae" dangerouslySetInnerHTML={{ __html: modif }}></label>
         </span>
 
         <input type="checkbox" id={todo.id} onChange={function () { } } className="input-check" />
@@ -39,6 +47,3 @@ export default class TodoItem extends Component {
     );
   }
 }
-
-						// 
-        // <a href="#" className="list-item">{todo.text}</a>

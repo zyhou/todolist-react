@@ -20,6 +20,10 @@ const create = () => {
 	};
 };
 
+const updateText = (id, updates) => {
+	_listTodos[id] = assign({}, _listTodos[id], updates);
+};
+
 var TodoStore = assign({}, EventEmitter.prototype, {
 	emitChange: function () {
 		this.emit(CHANGE_EVENT);
@@ -40,6 +44,11 @@ AppDispatcher.register(action => {
 	switch (action.actionType) {
 		case TodoConstants.ADD_ITEM:
 			create();
+			TodoStore.emitChange();
+			break;
+
+		case TodoConstants.UPDATE_TEXT_ITEM:
+			updateText(action.id, { text: action.text })
 			TodoStore.emitChange();
 			break;
 

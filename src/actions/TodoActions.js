@@ -9,6 +9,14 @@ class TodoActions {
         });
     }
 
+    updateText(id, text) {
+        AppDispatcher.dispatch({
+            actionType: TodoConstants.UPDATE_TEXT_ITEM,
+            id: id,
+            text: text
+        });
+    }
+
     removeItem(index) {
         AppDispatcher.dispatch({
             actionType: TodoConstants.REMOVE_ITEM,

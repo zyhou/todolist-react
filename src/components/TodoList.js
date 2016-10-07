@@ -26,7 +26,6 @@ export default class TodoList extends Component {
     this.setState({
       list: TodoStore.getList()
     })
-    console.log("TodoList_onChange")
   }
 
   render() {
