@@ -9,7 +9,7 @@
   transition : all .2s;
 }
 
-body {
+html, body {
   background: #F0EFE9;
 }
   
