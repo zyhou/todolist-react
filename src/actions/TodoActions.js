@@ -3,10 +3,9 @@ import TodoConstants from '../constants/TodoConstants';
 
 class TodoActions {
 
-    addItem(item) {
+    addItem() {
         AppDispatcher.dispatch({
-            actionType: TodoConstants.ADD_ITEM,
-            data: item
+            actionType: TodoConstants.ADD_ITEM
         });
     }
 

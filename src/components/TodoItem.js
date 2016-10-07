@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
-import todoStore from '../stores/TodoStore';
 
 export default class TodoItem extends Component {
 
-  constructor(props) {
-    super(props);
-  }
+  // constructor(props) {
+  //   super(props);
+  // }
 
   render() {
 

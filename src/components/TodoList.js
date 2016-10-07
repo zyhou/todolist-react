@@ -1,12 +1,31 @@
 import React, { Component } from 'react';
-import todoStore from '../stores/TodoStore';
+import TodoStore from '../stores/TodoStore';
+import TodoActions from '../actions/TodoActions';
 import TodoItem from './TodoItem';
 
 export default class TodoList extends Component {
 
   constructor(props) {
     super(props);
-    this.state = { list: todoStore.getList() };
+    this.state = { list: TodoStore.getList() };
+    this._onChange = this._onChange.bind(this);
+  }
+
+  componentDidMount() {
+    TodoStore.addChangeListener(this._onChange);
+  }
+  componentWillUnmount() {
+    TodoStore.removeChangeListener(this._onChange);
+  }
+
+  addItem() {
+    TodoActions.addItem();
+  }
+
+  _onChange() {
+    this.setState({
+      list: TodoStore.getList()
+    })
   }
 
   render() {
@@ -15,7 +34,9 @@ export default class TodoList extends Component {
     var todos = [];
 
     for (var key in allTodos) {
-      todos.push(<TodoItem key={key} todo={allTodos[key]} />);
+      if (allTodos.hasOwnProperty(key)) {
+        todos.push(<TodoItem key={key} todo={allTodos[key]} />);
+      }
     }
 
     return (
@@ -32,7 +53,7 @@ export default class TodoList extends Component {
           </ul>
         </div>
 
-        <a href="#" className="btn"></a>
+        <a className="btn" onClick={() => this.addItem() } ></a>
       </div>
     );
   }
