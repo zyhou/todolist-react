@@ -25,7 +25,7 @@ export default class TodoItem extends Component {
 
     let modif;
     if (this.state.isEditing) {
-      modif = '<i class="icon icon--sae"></i><span class="input__label-content input__label-content--sae">Votre tâche</span>'
+      modif = '<i class="icon icon--sae"></i><span class="input__label-content input__label-content--sae">Ma tâche</span>'
     }
 
     let completeStyle;
