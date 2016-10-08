@@ -5,7 +5,8 @@ export default class TodoItem extends Component {
 
   constructor(props) {
     super(props);
-    this.state = { isEditing: true, isComplete: props.complete };
+    let isEditing = props.todo.text === ''
+    this.state = { isEditing: isEditing, isComplete: props.todo.complete };
   }
 
   changeTexte(event) {
@@ -14,7 +15,9 @@ export default class TodoItem extends Component {
   }
 
   validItem(event) {
-    TodoActions.updateComplete(this.props.todo.id, event.target.value)
+    if(this.props.todo.text === '') return;
+
+    TodoActions.updateComplete(this.props.todo.id, event.target.checked)
     this.setState({ isComplete: event.target.checked });
   }
 

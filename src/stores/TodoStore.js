@@ -5,7 +5,7 @@ import assign from 'object-assign';
 
 var CHANGE_EVENT = 'change';
 
-let _listTodos = {};
+let _listTodos = JSON.parse(localStorage.getItem('todos')) || {};
 
 const create = () => {
 	// Trouvé sur internet
@@ -18,10 +18,13 @@ const create = () => {
 		complete: false,
 		text: ''
 	};
+
+	localStorage.setItem("todos", JSON.stringify(_listTodos));
 };
 
 const updateItem = (id, updates) => {
 	_listTodos[id] = assign({}, _listTodos[id], updates);
+	localStorage.setItem("todos", JSON.stringify(_listTodos));
 };
 
 var TodoStore = assign({}, EventEmitter.prototype, {
@@ -35,7 +38,7 @@ var TodoStore = assign({}, EventEmitter.prototype, {
 		this.removeListener(CHANGE_EVENT, callback);
 	},
 	getList() {
-		return _listTodos;
+		return _listTodos
 	}
 });
 
@@ -53,7 +56,7 @@ AppDispatcher.register(action => {
 			break;
 
 		case TodoConstants.UPDATE_COMPLETE_ITEM:
-			updateItem(action.id, { complete: action.iscomplete })
+			updateItem(action.id, { complete: action.isComplete })
 			TodoStore.emitChange();
 			break;
 
