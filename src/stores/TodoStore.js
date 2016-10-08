@@ -20,7 +20,7 @@ const create = () => {
 	};
 };
 
-const updateText = (id, updates) => {
+const updateItem = (id, updates) => {
 	_listTodos[id] = assign({}, _listTodos[id], updates);
 };
 
@@ -48,12 +48,13 @@ AppDispatcher.register(action => {
 			break;
 
 		case TodoConstants.UPDATE_TEXT_ITEM:
-			updateText(action.id, { text: action.text })
+			updateItem(action.id, { text: action.text })
 			TodoStore.emitChange();
 			break;
 
-		case TodoConstants.REMOVE_ITEM:
-
+		case TodoConstants.UPDATE_COMPLETE_ITEM:
+			updateItem(action.id, { complete: action.iscomplete })
+			TodoStore.emitChange();
 			break;
 
 		default:

@@ -17,10 +17,11 @@ class TodoActions {
         });
     }
 
-    removeItem(index) {
+    updateComplete(id, isComplete) {
         AppDispatcher.dispatch({
-            actionType: TodoConstants.REMOVE_ITEM,
-            data: index
+            actionType: TodoConstants.UPDATE_COMPLETE_ITEM,
+            id: id,
+            isComplete: isComplete
         });
     }
 
